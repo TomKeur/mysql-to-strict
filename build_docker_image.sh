@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o mysql-to-strict .
+docker build -t mysql-to-strict -f Dockerfile .
