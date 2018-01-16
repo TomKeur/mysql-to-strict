@@ -37,13 +37,23 @@ func buildQuery(column database.Column, tableName string) {
 	runes := []rune(column.Type.String)
 	enumString := string(runes[5:(len(column.Type.String) - 1)])
 
-	// Check if there are empy values in the ENUM field.
 	enumValues := strings.Split(enumString, ",")
+
+	// Check if unknown is not already a value.
+	unkownExists := strings.Contains(strings.ToLower(enumString), "unknown")
+
 	runAlterQuery := false
+
+	// Check if there are empy values in the ENUM field.
 	for key, value := range enumValues {
 		if value == "''" {
-			enumValues[key] = "'UNKNOWN'"
 			runAlterQuery = true
+			if unkownExists {
+				// Remove the empty item '' from the values.
+				enumValues = append(enumValues[:key], enumValues[key+1:]...)
+			} else {
+				enumValues[key] = "'UNKNOWN'"
+			}
 		}
 	}
 	alterQuery := "" +
