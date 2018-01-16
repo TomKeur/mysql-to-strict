@@ -14,6 +14,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"gopkg.in/alecthomas/kingpin.v2"
 	"golang.org/x/crypto/ssh/terminal"
+	"time"
 )
 
 const version = "1.0.0"
@@ -146,6 +147,11 @@ func main() {
 	checkTablesAndFields()
 
 	if queries.Len() > 0 {
+		t := time.Now()
+		currentTime := t.Format(time.RFC3339)
+		if *outputFile == "output.sql" {
+			*outputFile = fmt.Sprintf("%s-%s-%s", *dbName, currentTime, *outputFile)
+		}
 		file, err := os.Create(fmt.Sprintf("./%s", *outputFile))
 		if err != nil {
 			panic(err)
