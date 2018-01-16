@@ -140,7 +140,6 @@ func main() {
 	}
 
 	initializeDatabaseConnection()
-	//retrieveAllTables()
 	tableNames := retrieveAllTables()
 	checkTableEngines(tableNames)
 	describeAllTables(tableNames)
