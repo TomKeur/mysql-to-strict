@@ -15,3 +15,6 @@
 
 # Editor files
 .idea
+
+# Generated SQL files.
+*.sql
