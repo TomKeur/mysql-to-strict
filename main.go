@@ -11,13 +11,14 @@ import (
 	"github.com/tomkeur/mysql-to-strict/database"
 	"github.com/tomkeur/mysql-to-strict/checks/datetime_check"
 	"github.com/tomkeur/mysql-to-strict/checks/enum_check"
+	"github.com/tomkeur/mysql-to-strict/checks/date_check"
 	_ "github.com/go-sql-driver/mysql"
 	"gopkg.in/alecthomas/kingpin.v2"
 	"golang.org/x/crypto/ssh/terminal"
 	"time"
 )
 
-const version = "1.0.0"
+const version = "1.2.0"
 
 var (
 	dbAddr      = kingpin.Flag("host", "Connect to host. ip:port or hostname:port.").Envar("MYSQL_HOST").Short('h').Required().String()
@@ -116,6 +117,8 @@ func checkTablesAndFields() {
 			columnType := column.Type.String
 			if strings.Contains(columnType, "datetime") {
 				datetime_check.Datetime(column, tableName)
+			} else if strings.Contains(columnType, "date") {
+				date_check.Date(column, tableName)
 			} else if strings.Contains(columnType, "enum") {
 				enum_check.Enum(column, tableName)
 			}
@@ -123,6 +126,7 @@ func checkTablesAndFields() {
 	}
 
 	queries.WriteString(datetime_check.GetQueries())
+	queries.WriteString(date_check.GetQueries())
 	queries.WriteString(enum_check.GetQueries())
 }
 
