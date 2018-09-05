@@ -26,6 +26,7 @@ var (
 	dbPassword  = kingpin.Flag("password", "Password to use when connecting to server. If password is not given it's asked from the tty.").Envar("MYSQL_PASSWORD").Short('p').String()
 	dbName      = kingpin.Flag("name", "Database name.").Short('n').Envar("MYSQL_DATABASE").Required().String()
 	outputFile  = kingpin.Flag("filename", "Output file").Short('f').Envar("FILENAME").Default("output.sql").String()
+	forceUpdate = kingpin.Flag("force", "Force update queries").Bool()
 	tables      = Tables{}
 	totalTables = 0
 	queries     bytes.Buffer
@@ -116,9 +117,9 @@ func checkTablesAndFields() {
 			// Check if column type is one of the types that is not strict.
 			columnType := column.Type.String
 			if strings.Contains(columnType, "datetime") {
-				datetime_check.Datetime(column, tableName)
+				datetime_check.Datetime(column, tableName, *forceUpdate)
 			} else if strings.Contains(columnType, "date") {
-				date_check.Date(column, tableName)
+				date_check.Date(column, tableName, *forceUpdate)
 			} else if strings.Contains(columnType, "enum") {
 				enum_check.Enum(column, tableName)
 			}
