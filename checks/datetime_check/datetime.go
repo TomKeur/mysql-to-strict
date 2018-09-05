@@ -9,11 +9,11 @@ import (
 
 var queries bytes.Buffer
 
-func Datetime(column database.Column, tableName string) {
+func Datetime(column database.Column, tableName string, forceUpdate bool) {
 	// Checks.
 	defaultTimeStamp := strings.Contains(column.Default.String, "0000-00-00 00:00:00")
 	defaultNull := column.Null.String == "NO"
-	if defaultTimeStamp || defaultNull {
+	if defaultTimeStamp || defaultNull || forceUpdate {
 		buildQuery(column, tableName)
 	}
 }

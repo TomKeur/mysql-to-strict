@@ -16,6 +16,7 @@ Please check out the LICENSE file, included in the source code.
 
 * Table engines are InnoDB.
 * MySQL Datetimes are not '0000-00-00 00:00:00'.
+* MySQL Dates are not '0000-00-00'.
 * Enum don't contain empty values.
 
 ## Usage
@@ -32,6 +33,9 @@ $ mysql-to-strict --host=localhost --user=root --password=pa$$w0rd --name=databa
 
 # It's also possible to use short flags.
 $ mysql-to-strict -h localhost -u root -n databasename
+
+# Forcing output of update queries.
+$ mysql-to-strict --host=localhost --user=root --password=pa$$w0rd --name=databasename --force
 ```
 
 ## Usage with Docker
@@ -51,6 +55,7 @@ docker run -it tomkeur/mysql-to-strict mysql-to-strict --host=localhost --user=r
 | -p    | --password=PASSWORD | MYSQL_PASSWORD | Password to use when connecting to server. If password is not given it's asked from the tty. |
 | -n    | --name=NAME         | MYSQL_DATABASE | Database name.                                                                               |
 | -f    | --filename=NAME     | FILENAME       | Generated queries will be saved to this file.                                                |
+|       | --force             |                | Force running update queries, if your table structure is correct but your data is wrong.     |
 
 As you can see above: It's possible to use ENVIRONMENT variables, and even mix them up with CLI for example:
 
