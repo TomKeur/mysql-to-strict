@@ -18,7 +18,7 @@ import (
 	"time"
 )
 
-const version = "1.2.0"
+const version = "1.3.0"
 
 var (
 	dbAddr      = kingpin.Flag("host", "Connect to host. ip:port or hostname:port.").Envar("MYSQL_HOST").Short('h').Required().String()
