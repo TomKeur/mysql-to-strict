@@ -1,20 +1,20 @@
 package main
 
 import (
+	"bytes"
 	"database/sql"
 	"fmt"
 	"log"
-	"bytes"
-	"strings"
 	"os"
+	"strings"
 
-	"github.com/tomkeur/mysql-to-strict/database"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/tomkeur/mysql-to-strict/checks/date_check"
 	"github.com/tomkeur/mysql-to-strict/checks/datetime_check"
 	"github.com/tomkeur/mysql-to-strict/checks/enum_check"
-	"github.com/tomkeur/mysql-to-strict/checks/date_check"
-	_ "github.com/go-sql-driver/mysql"
-	"gopkg.in/alecthomas/kingpin.v2"
+	"github.com/tomkeur/mysql-to-strict/database"
 	"golang.org/x/crypto/ssh/terminal"
+	"gopkg.in/alecthomas/kingpin.v2"
 	"time"
 )
 
