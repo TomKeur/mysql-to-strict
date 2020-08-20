@@ -6,16 +6,15 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
+	"time"
 
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/tomkeur/mysql-to-strict/checks/date_check"
-	"github.com/tomkeur/mysql-to-strict/checks/datetime_check"
-	"github.com/tomkeur/mysql-to-strict/checks/enum_check"
+	"github.com/tomkeur/mysql-to-strict/checks/date"
+	"github.com/tomkeur/mysql-to-strict/checks/datetime"
+	"github.com/tomkeur/mysql-to-strict/checks/enum"
 	"github.com/tomkeur/mysql-to-strict/database"
 	"golang.org/x/crypto/ssh/terminal"
 	"gopkg.in/alecthomas/kingpin.v2"
-	"time"
 )
 
 const version = "1.3.0"
@@ -116,19 +115,20 @@ func checkTablesAndFields() {
 		for _, column := range columns {
 			// Check if column type is one of the types that is not strict.
 			columnType := column.Type.String
-			if strings.Contains(columnType, "datetime") {
-				datetime_check.Datetime(column, tableName, *forceUpdate)
-			} else if strings.Contains(columnType, "date") {
-				date_check.Date(column, tableName, *forceUpdate)
-			} else if strings.Contains(columnType, "enum") {
-				enum_check.Enum(column, tableName)
+			switch columnType {
+			case "datetime":
+				datetime.Datetime(column, tableName, *forceUpdate)
+			case "date":
+				date.Date(column, tableName, *forceUpdate)
+			case "enum":
+				enum.Enum(column, tableName)
 			}
 		}
 	}
 
-	queries.WriteString(datetime_check.GetQueries())
-	queries.WriteString(date_check.GetQueries())
-	queries.WriteString(enum_check.GetQueries())
+	queries.WriteString(datetime.GetQueries())
+	queries.WriteString(date.GetQueries())
+	queries.WriteString(enum.GetQueries())
 }
 
 func main() {
