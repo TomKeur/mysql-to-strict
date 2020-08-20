@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2020-08-20
+
+### Added
+
+- Go modules
+- Contributing guide
+- Makefile
+- golangci-lint
+
+### Changed
+
+- Compiled with Golang 1.15.0
+- Update Docker image so it's using the latest Alpine linux version (3.12.0)
+- Update Dockerfile: Maintainer label, use COPY instead of ADD.
+- Updated the code, so golang-lint would pass.
+- Small code fixes: removed unused variable, go fmt.
+
 ## [1.3.0] - 2018-09-05
 
 ### Added
