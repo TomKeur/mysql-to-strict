@@ -1,9 +1,10 @@
-package enum_check
+package enum
 
 import (
 	"bytes"
-	"strings"
 	"fmt"
+	"strings"
+
 	"github.com/tomkeur/mysql-to-strict/database"
 )
 
