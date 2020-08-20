@@ -67,3 +67,9 @@ $ export MYSQL_PASSWORD=pa$$w0rd
 # Run tool
 $ mysql-to-strict -n databasename
 ```
+
+### Contributing
+
+Thanks for your interest in the project, and your willing to contribute:
+- Pull requests are welcome!
+- Please use `golangci-lint run` from [github.com/golangci/golangci-lint](https://github.com/golangci/golangci-lint) for linting code.
