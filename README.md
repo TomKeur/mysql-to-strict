@@ -5,7 +5,7 @@ This tool can be used to convert an existing MySQL database to a database which 
 ## Disclaimer
 
 Before running the generated queries, always backup your database!
-I'm not an Database Administrator (DBA), this tool is working for my specific needs.
+I'm not a Database Administrator (DBA), this tool is working for my specific needs.
 Besides that this is my first Golang project. I wrote this tool, because I needed to migrate multiple databases to run on a MySQL Strict server.
 
 ## License
