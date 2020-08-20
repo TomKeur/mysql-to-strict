@@ -87,7 +87,7 @@ func checkTableEngines(tableNames map[string]string) {
 
 func describeAllTables(tableNames map[string]string) {
 	log.Println("==> Starting checking table structures...")
-	for tableName, _ := range tableNames {
+	for tableName := range tableNames {
 		query := fmt.Sprintf("DESCRIBE `%s`;", tableName)
 		rows, err := database.Connection.Query(query)
 		if err != nil {
