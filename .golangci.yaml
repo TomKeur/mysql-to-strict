@@ -16,7 +16,7 @@ linters-settings:
 
 linters:
     enable:
-        - golint
+        - revive
         - gocritic
         - stylecheck
         - goimports
