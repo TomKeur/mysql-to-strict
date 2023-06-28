@@ -8,13 +8,14 @@ import (
 	"os"
 	"time"
 
+	"github.com/alecthomas/kingpin/v2"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/tomkeur/mysql-to-strict/checks/date"
 	"github.com/tomkeur/mysql-to-strict/checks/datetime"
 	"github.com/tomkeur/mysql-to-strict/checks/enum"
 	"github.com/tomkeur/mysql-to-strict/database"
-	"golang.org/x/crypto/ssh/terminal"
-	"gopkg.in/alecthomas/kingpin.v2"
+	"golang.org/x/term"
 )
 
 const version = "1.4.0"
@@ -66,7 +67,7 @@ func retrieveAllTables() map[string]string {
 		var t = database.Table{}
 		err = rows.Scan(&t.Name, &t.Engine, &t.Version, &t.RowFormat, &t.Rows, &t.AvgRowLength, &t.DataLength, &t.MaxDataLength, &t.IndexLength, &t.DataFree, &t.AutoIncrement, &t.CreateTime, &t.UpdateTime, &t.CheckTime, &t.Collation, &t.CheckSum, &t.CheckTime, &t.CreateOptions)
 		if err != nil {
-			log.Fatal(err)
+			log.Panic(err)
 		}
 		tableNames[t.Name] = t.Engine
 	}
@@ -139,7 +140,7 @@ func main() {
 	// Is password is empty, use readpassword.
 	if *dbPassword == "" {
 		fmt.Print("Enter MySQL Password:")
-		bytePassword, err := terminal.ReadPassword(0)
+		bytePassword, err := term.ReadPassword(0)
 		if err == nil {
 			*dbPassword = string(bytePassword)
 		}
